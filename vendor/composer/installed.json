@@ -1,0 +1,49 @@
+[
+    {
+        "name": "braintree/braintree_php",
+        "version": "2.32.0",
+        "version_normalized": "2.32.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/braintree/braintree_php.git",
+            "reference": "58f4d0f24a8e977b14022c96ccff5a24061e17ee"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/braintree/braintree_php/zipball/58f4d0f24a8e977b14022c96ccff5a24061e17ee",
+            "reference": "58f4d0f24a8e977b14022c96ccff5a24061e17ee",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-dom": "*",
+            "ext-hash": "*",
+            "ext-openssl": "*",
+            "ext-simplexml": "*",
+            "ext-xmlwriter": "*",
+            "php": ">=5.2.1"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2014-09-24 18:34:16",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Braintree": "lib"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Braintree",
+                "homepage": "http://www.braintreepayments.com"
+            }
+        ],
+        "description": "Braintree PHP Client Library"
+    }
+]
