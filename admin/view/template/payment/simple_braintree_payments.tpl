@@ -37,7 +37,7 @@
             <span class="error"><?php echo $error_key; ?></span>
             <?php } ?></td>
         </tr>
-        <input type="hidden" name="simple_braintree_payments_cse" value="" />
+        <input type="hidden" name="simple_braintree_payments_cse" value="1" />
         <!--<tr>
           <td><span class="required">*</span> <?php echo $entry_cse; ?></td>
           <td><textarea cols="43" rows="6" name="simple_braintree_payments_cse"><?php echo $simple_braintree_payments_cse; ?></textarea>
