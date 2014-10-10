@@ -32,4 +32,4 @@ The extension uses the Braintree API. You need to enter either Sandbox or Produc
 
 In order to obtain this information please login to your Braintree account dashboard, click on _Account_ in the top right corner of the page, then _API Keys_.
 
-When switching to Production mode please replace API keys and Merchant ID with Production ones and change _Transaction Mode_ setting to _Production_. You're now ready to accept credit card payments thru Braintree. 
+When switching to Production mode please replace API keys and Merchant ID with Production ones and change _Transaction Mode_ setting to _Production_. You're all set to accept credit card payments thru Braintree. 
