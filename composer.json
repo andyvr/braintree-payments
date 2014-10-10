@@ -1,0 +1,10 @@
+{
+  "name": "andyvr/braintree-payments",
+  "description": "Braintree payment gateway extension for Opencart v1.5.x",
+  "type": "opencart-extension",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.2.1",
+    "braintree/braintree_php" : "2.32.0"
+  }
+}
