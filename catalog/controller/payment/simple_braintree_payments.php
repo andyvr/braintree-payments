@@ -3,15 +3,15 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 	protected function index() {
 		$this->load->model('checkout/order');
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
-        //Load Braintree Library
-        require_once('./vendor/braintree/braintree_php/lib/Braintree.php');
-        Braintree_Configuration::environment($this->config->get('simple_braintree_payments_mode'));
-        Braintree_Configuration::merchantId($this->config->get('simple_braintree_payments_merchant'));
-        Braintree_Configuration::publicKey($this->config->get('simple_braintree_payments_public_key'));
-        Braintree_Configuration::privateKey($this->config->get('simple_braintree_payments_private_key'));
-        $this->data['clientToken'] = Braintree_ClientToken::generate();
-        
-        $this->language->load('payment/simple_braintree_payments');
+		//Load Braintree Library
+		require_once('./vendor/braintree/braintree_php/lib/Braintree.php');
+		Braintree_Configuration::environment($this->config->get('simple_braintree_payments_mode'));
+		Braintree_Configuration::merchantId($this->config->get('simple_braintree_payments_merchant'));
+		Braintree_Configuration::publicKey($this->config->get('simple_braintree_payments_public_key'));
+		Braintree_Configuration::privateKey($this->config->get('simple_braintree_payments_private_key'));
+		$this->data['clientToken'] = Braintree_ClientToken::generate();
+		
+		$this->language->load('payment/simple_braintree_payments');
 
 		$this->data['text_credit_card'] = $this->language->get('text_credit_card');
 		$this->data['text_wait'] = $this->language->get('text_wait');
@@ -23,9 +23,9 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 
 		$this->data['button_confirm'] = $this->language->get('button_confirm');
 		$this->data['button_back'] = $this->language->get('button_back');
-        
-        $this->data['simple_braintree_payments_public_key'] = $this->config->get('simple_braintree_payments_public_key');
-        $this->data['simple_braintree_payments_cse'] = $this->config->get('simple_braintree_payments_cse');
+		
+		$this->data['simple_braintree_payments_public_key'] = $this->config->get('simple_braintree_payments_public_key');
+		$this->data['simple_braintree_payments_cse'] = $this->config->get('simple_braintree_payments_cse');
 
 		$this->data['months'] = array();
 
@@ -60,41 +60,41 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
-        
-        $amount = $this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false);
-        
-        //Load Braintree Library
-        require_once('./vendor/braintree/braintree_php/lib/Braintree.php');
-        Braintree_Configuration::environment($this->config->get('simple_braintree_payments_mode'));
-        Braintree_Configuration::merchantId($this->config->get('simple_braintree_payments_merchant'));
-        Braintree_Configuration::publicKey($this->config->get('simple_braintree_payments_public_key'));
-        Braintree_Configuration::privateKey($this->config->get('simple_braintree_payments_private_key'));
-        
-        // Payment nonce received from the client js side
-        $nonce = $_POST["payment_method_nonce"];
-        //create object to use as json
+		
+		$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false);
+		
+		//Load Braintree Library
+		require_once('./vendor/braintree/braintree_php/lib/Braintree.php');
+		Braintree_Configuration::environment($this->config->get('simple_braintree_payments_mode'));
+		Braintree_Configuration::merchantId($this->config->get('simple_braintree_payments_merchant'));
+		Braintree_Configuration::publicKey($this->config->get('simple_braintree_payments_public_key'));
+		Braintree_Configuration::privateKey($this->config->get('simple_braintree_payments_private_key'));
+		
+		// Payment nonce received from the client js side
+		$nonce = $_POST["payment_method_nonce"];
+		//create object to use as json
 		$json = array();
-        $result = null;
-        try {
-            // Perform the transaction
-            $result = Braintree_Transaction::sale(array(
-                'amount' => $amount,
-                'paymentMethodNonce' => $nonce,
-                // Optional
-                'orderId' => $this->session->data['order_id']
-            ));
-        } catch (Exception $e) {
-            $json['phperror'] = $e->getMessage();
-        }
-        $json['details'] = $result;
-        
-        if ($result->success) {
-            $this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('simple_braintree_payments_order_status_id'));
+		$result = null;
+		try {
+			// Perform the transaction
+			$result = Braintree_Transaction::sale(array(
+				'amount' => $amount,
+				'paymentMethodNonce' => $nonce,
+				// Optional
+				'orderId' => $this->session->data['order_id']
+			));
+		} catch (Exception $e) {
+			$json['phperror'] = $e->getMessage();
+		}
+		$json['details'] = $result;
+		
+		if ($result->success) {
+			$this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('simple_braintree_payments_order_status_id'));
 			$json['success'] = $this->url->link('checkout/success', '', 'SSL');
-        } else {
-            $json['error'] = $result->_attributes['message'];
-        }
-        
+		} else {
+			$json['error'] = $result->_attributes['message'];
+		}
+		
 		$this->response->setOutput(json_encode($json));
 	}
 }
