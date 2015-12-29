@@ -97,5 +97,14 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 		
 		$this->response->setOutput(json_encode($json));
 	}
+	private static function prepstr($object, $trim = false, $chars = 255) {
+		if (!$trim && isset($object) && !empty($object)) {
+			return $object;
+		} elseif ($trim && is_int($chars) && isset($object) && !empty($object)) {
+			return substr($object, 0, $chars);
+		} else {
+			return NULL;
+		}
+	}
 }
 ?>
