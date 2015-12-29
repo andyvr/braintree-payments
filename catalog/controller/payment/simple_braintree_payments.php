@@ -71,7 +71,7 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 		Braintree_Configuration::privateKey($this->config->get('simple_braintree_payments_private_key'));
 		
 		// Payment nonce received from the client js side
-		$nonce = $_POST["payment_method_nonce"];
+		$client_post = $_POST["payment_method_nonce"];
 		//create object to use as json
 		$json = array();
 		$result = null;
@@ -79,7 +79,10 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 			// Perform the transaction
 			$result = Braintree_Transaction::sale(array(
 				'amount' => $amount,
-				'paymentMethodNonce' => $nonce,
+				'paymentMethodNonce' => $client_post,
+				'creditCard' => [
+					'cardholderName' => strtoupper($this->prepstr($order_info['payment_firstname'], true, 175) . ' ' . $this->prepstr($order_info['payment_lastname'], true, 175)),
+				],
 				// Optional
 				'orderId' => $this->session->data['order_id']
 			));
@@ -97,6 +100,7 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 		
 		$this->response->setOutput(json_encode($json));
 	}
+
 	private static function prepstr($object, $trim = false, $chars = 255) {
 		if (!$trim && isset($object) && !empty($object)) {
 			return $object;
