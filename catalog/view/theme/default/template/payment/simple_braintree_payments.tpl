@@ -1,6 +1,10 @@
 <h2><?php echo $text_credit_card; ?></h2>
 
-<span id="braintree_mesaages" class="payment-errors error"></span>
+<?php if (!empty($braintree_mod_msg)) { echo '<div class="' . $braintree_mod_msg_class . '">' . $braintree_mod_msg . '</div>'; } ?>
+
+<?php if ($simple_braintree_payments_mode == 'sandbox') { echo '<div class="warning">' . $text_test_msg . '</div>'; } ?>
+
+<span id="braintree_messages" class="payment-errors error"></span>
 
 <form id="payment-form" method="post" action="">
   <div id="braintree"></div>
@@ -19,6 +23,7 @@
     else
         setTimeout(function() { wait_for_braintree_to_load() }, 50);
   }
+
   function complete_braintree_payment(nonce) {
       $('#payment-form').find('#button_confirm').prop('disabled', true);
       $.ajax({
@@ -31,7 +36,7 @@
           },				
           success: function(json) {
               if (json['error']) {
-                  $('#braintree_mesaages').text(json['error']);
+                  $('#braintree_messages').text(json['error']);
                   $('#payment-form').find('#button_confirm').prop('disabled', false);
               }
               if (json['success']) {
@@ -52,10 +57,10 @@
       }
     });
   }
-    
+
   jQuery(function($) {
     $('#payment-form').submit(function(e) {
-      $('#braintree_mesaages').text('');
+      $('#braintree_messages').text('');
     });
   });
 </script>
