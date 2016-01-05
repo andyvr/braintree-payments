@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']             = 'Braintree Payments';
+$_['heading_title']             = 'Braintree Secure Payments';
 
 // Text 
 $_['text_payment']              = 'Payment';
