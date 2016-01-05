@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_title']           = 'Pay With Credit Card or PayPal (Secure)';
+$_['text_title']           = 'Braintree Secure Payments';
 $_['text_credit_card']     = 'Credit / Debit Card Details';
 $_['text_wait']            = 'Please wait!';
 $_['text_test_msg']        = 'Gateway is running in Sandbox mode. This transaction will not be charged. Visa Test: 4009348888881881';
