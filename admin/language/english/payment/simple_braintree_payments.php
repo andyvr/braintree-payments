@@ -18,7 +18,7 @@ $_['entry_auth_mode']           = 'Authorization Mode:<br /><span class="help">I
 $_['entry_order_status']        = 'Order Status:<br /><span class="help">OpenCart orders will change to this status upon successful transaction and order creation.</span>';
 $_['entry_merchant']            = 'Merchant ID:<br /><span class="help">The primary merchant ID for your Braintree Gateway.</span>';
 $_['entry_public']              = 'Public Key:<br /><span class="help">The public key used for API access. Found in Braintree user settings.</span>';
-$_['entry_key']                 = 'Private Key:<br /><span class="help">The private key used for API access. Do not share this key! Found in Braintreeuser settings.</span>';
+$_['entry_key']                 = 'Private Key:<br /><span class="help">The private key used for API access. Do not share this key! Found in Braintree user settings.</span>';
 $_['entry_cse']                 = 'CSE Key:';
 $_['entry_accnt_id']            = 'Merchant Account:<br /><span class="help">The optional merchant sub-account label to add to transactions. Found in Braintree processing settings.</span>';
 
