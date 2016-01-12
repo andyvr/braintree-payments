@@ -26,6 +26,7 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 		$this->data['text_live'] = $this->language->get('text_live');
 		$this->data['text_authorize'] = $this->language->get('text_authorize');
 		$this->data['text_charge'] = $this->language->get('text_charge');
+		$this->data['text_no_offset'] = $this->language->get('text_no_offset');
 
 		$this->data['entry_merchant'] = $this->language->get('entry_merchant');
 		$this->data['entry_public'] = $this->language->get('entry_public');
@@ -38,6 +39,7 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 		$this->data['entry_cust_prefix'] = $this->language->get('entry_cust_prefix');
 		$this->data['entry_order_prefix'] = $this->language->get('entry_order_prefix');
 		$this->data['entry_order_status'] = $this->language->get('entry_order_status');
+		$this->data['entry_time_zone'] = $this->language->get('entry_time_zone');
 		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$this->data['entry_status'] = $this->language->get('entry_status');
 		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -189,6 +191,14 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 			$this->data['simple_braintree_payments_order_prefix'] = $this->request->post['simple_braintree_payments_order_prefix'];
 		} else {
 			$this->data['simple_braintree_payments_order_prefix'] = $this->config->get('simple_braintree_payments_order_prefix');
+		}
+
+		$this->data['time_zones'] = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+		
+		if (isset($this->request->post['simple_braintree_payments_time_zone'])) {
+			$this->data['simple_braintree_payments_time_zone'] = $this->request->post['simple_braintree_payments_time_zone'];
+		} else {
+			$this->data['simple_braintree_payments_time_zone'] = $this->config->get('simple_braintree_payments_time_zone');
 		}
 
 		if (isset($this->request->post['simple_braintree_payments_geo_zone_id'])) {
