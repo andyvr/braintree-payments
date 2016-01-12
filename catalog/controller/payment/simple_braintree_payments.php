@@ -229,6 +229,12 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 		$json['details'] = $result;
 		
 		if ($result->success) {
+			
+			// set timezone if setting is there
+			if ($this->config->get('simple_braintree_payments_time_zone') && $this->config->get('simple_braintree_payments_time_zone') != 'none') {
+				$result->transaction->createdAt->setTimeZone(new DateTimeZone($this->config->get('simple_braintree_payments_time_zone')));
+			}
+			
 			$this->model_checkout_order->confirm($order_id, $this->config->get('simple_braintree_payments_order_status_id'));
 			$this->model_checkout_order->update($order_id, $this->config->get('simple_braintree_payments_order_status_id'), $result, false);			
 			$json['success'] = $this->url->link('checkout/success', '', 'SSL');
