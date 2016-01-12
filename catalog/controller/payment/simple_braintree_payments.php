@@ -235,8 +235,36 @@ class ControllerPaymentSimpleBraintreePayments extends Controller {
 				$result->transaction->createdAt->setTimeZone(new DateTimeZone($this->config->get('simple_braintree_payments_time_zone')));
 			}
 			
+			// build order history entry
+			$result_html = '<div class="braintreeOrderHistory">';
+			$result_html .= 'Transaction ID: ' . $result->transaction->id .
+				'<br />Order ID: ' . $result->transaction->orderId .
+				'<br />Type: ' . $result->transaction->type .
+				'<br />Status: ' . $result->transaction->status .
+				'<br />Amount: ' . $result->transaction->amount .
+				'<br />Created: ' . $result->transaction->createdAt->format('m/d/Y g:i:s A T') . 
+				'<br /><br />Payment Method: ' . $result->transaction->paymentInstrumentType;
+				
+			if ($result->transaction->creditCardDetails->last4) {
+				$result_html .= '<br />Card Type: ' . $result->transaction->creditCardDetails->cardType .
+				'<br />Card Num: ' . '************' . $result->transaction->creditCardDetails->last4 .
+				'<br />Card Exp: ' . $result->transaction->creditCardDetails->expirationDate .
+				'<br />Card Zone: ' . $result->transaction->creditCardDetails->countryOfIssuance;
+			}
+			
+			if (isset($result->transaction->paypalDetails)) {
+				$result_html .= '<br />Account: ' . $result->transaction->paypalDetails->payerEmail .
+				'<br />Seller Protection: ' . $result->transaction->paypalDetails->sellerProtectionStatus .
+				'<br />Payer ID: ' . $result->transaction->paypalDetails->payerId .
+				'<br />Auth ID: ' . $result->transaction->paypalDetails->authorizationId .
+				'<br />Payment ID: ' . $result->transaction->paypalDetails->authorizationId;
+			}
+
+			$result_html .= '<br /><br />Gateway Response: ' . $result->transaction->processorResponseCode . ' - ' . $result->transaction->processorResponseText . '</div>';
+
+			
 			$this->model_checkout_order->confirm($order_id, $this->config->get('simple_braintree_payments_order_status_id'));
-			$this->model_checkout_order->update($order_id, $this->config->get('simple_braintree_payments_order_status_id'), $result, false);			
+			$this->model_checkout_order->update($order_id, $this->config->get('simple_braintree_payments_order_status_id'), $result_html, false);			
 			$json['success'] = $this->url->link('checkout/success', '', 'SSL');
 		} else {
 			$json['error'] = $result->_attributes['message'];
