@@ -10,6 +10,7 @@ $_['text_test']                 = 'Sandbox (Testing)';
 $_['text_live']                 = 'Production (Live)';
 $_['text_authorize']            = 'Authorize-Only (Manual Settlements)';
 $_['text_charge']               = 'Charge All Cards (Auto Settlements)';
+$_['text_no_offset']            = 'No Offset';
 
 // Entry General
 $_['entry_status']              = 'Braintree Status:<br /><span class="help">Enable or disable this payment method.</span>';
@@ -28,6 +29,7 @@ $_['entry_mod_msg']             = 'Payment Method Message:<br /><span class="hel
 $_['entry_mod_msg_class']       = 'Payment Method Message Class:<br /><span class="help">Comma separated classes, used to style the payment method message. The default class is "success".</span>';
 $_['entry_cust_prefix']         = 'Customer Number Prefix:<br /><span class="help">Optional identifier to add to customer id&#39;s to prevent cross platform collisions. <strong>Warning: changing this setting may cause duplicate customers.</strong></span>';
 $_['entry_order_prefix']        = 'Order Number Prefix:<br /><span class="help">Optional identifier to add to order id&#39;s to prevent cross platform collisions.</span>';
+$_['entry_time_zone']           = 'Time Zone Offset:<br /><span class="help">Optional adjustment for order history entry.</span>';
 $_['entry_geo_zone']            = 'Geo Zone:<br /><span class="help">Optional restriction based on shipping zones.</span>';
 $_['entry_total']               = 'Total:<br /><span class="help">The checkout total the order must reach before this payment method becomes active.</span>';
 $_['entry_sort_order']          = 'Sort Order:';
