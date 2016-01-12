@@ -133,6 +133,19 @@
             <td><input type="text" name="simple_braintree_payments_order_prefix" value="<?php echo $simple_braintree_payments_order_prefix; ?>" /></td>
         </tr>
         <tr>
+          <td><?php echo $entry_time_zone; ?></td>
+          <td><select name="simple_braintree_payments_time_zone">
+              <option value="none"><?php echo $text_no_offset; ?></option>
+              <?php foreach ($time_zones as $time_zone) { ?>
+              <?php if ($time_zone == $simple_braintree_payments_time_zone) { ?>
+              <option value="<?php echo $time_zone; ?>" selected="selected"><?php echo $time_zone; ?></option>
+              <?php } else { ?>
+              <option value="<?php echo $time_zone; ?>"><?php echo $time_zone; ?></option>
+              <?php } ?>
+              <?php } ?>
+            </select></td>
+        </tr>
+        <tr>
           <td><?php echo $entry_geo_zone; ?></td>
           <td><select name="simple_braintree_payments_geo_zone_id">
               <option value="0"><?php echo $text_all_zones; ?></option>
